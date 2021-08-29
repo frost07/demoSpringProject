@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import xml.DOMxmlWriter;
 
 @Controller
 public class MainController {
@@ -22,6 +23,7 @@ public class MainController {
                            @RequestParam String Fb12, @RequestParam String Rb12, @RequestParam String Fb5,
                            @RequestParam String Rb5, Model model) {
         Entity entity = new Entity(Fb50, Rb50, Fb50m, Rb50m, Fb27, Rb27, Fb12, Rb12, Fb5, Rb5);
+        DOMxmlWriter.mainXML(entity);
         return "redirect:/finish";
     }
 
