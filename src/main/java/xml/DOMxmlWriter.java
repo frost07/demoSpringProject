@@ -27,15 +27,15 @@ public class DOMxmlWriter {
             Document doc = builder.newDocument();
             // создаем корневой элемент
             Element rootElement =
-                    doc.createElementNS("", "Baloons");
+                    doc.createElementNS("", "ballons");
             // добавляем корневой элемент в объект Document
             doc.appendChild(rootElement);
 
             // добавляем первый дочерний элемент к корневому
-            rootElement.appendChild(getFilling(doc, entity.getFb50(), entity.getFb50m(), entity.getFb27(), entity.getFb12(), entity.getFb5()));
+            rootElement.appendChild(getballon(doc, entity.getFb50(), entity.getFb50m(), entity.getFb27(), entity.getFb12(), entity.getFb5(),"filling"));
 
             //добавляем второй дочерний элемент к корневому
-            rootElement.appendChild(getRealization(doc, entity.getRb50(), entity.getRb50m(), entity.getRb27(), entity.getRb12(), entity.getRb5()));
+            rootElement.appendChild(getballon(doc, entity.getRb50(), entity.getRb50m(), entity.getRb27(), entity.getRb12(), entity.getRb5(),"realization"));
 
             //создаем объект TransformerFactory для печати в консоль
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -46,11 +46,11 @@ public class DOMxmlWriter {
 
             //печатаем в консоль или файл
             StreamResult console = new StreamResult(System.out);
-//            StreamResult file = new StreamResult(new File("/languages.xml"));
+            StreamResult file = new StreamResult(new File(FilePath.getFilePath()));
 
             //записываем данные
             transformer.transform(source, console);
-//            transformer.transform(source, file);
+            transformer.transform(source, file);
 //            System.out.println("Создание XML файла закончено");
 
         } catch (Exception e) {
@@ -59,35 +59,19 @@ public class DOMxmlWriter {
     }
 
     // метод для создания нового узла XML-файла
-    private static Node getFilling(Document doc, String b50, String b50m, String b27, String b12, String b5) {
-        Element filling = doc.createElement("Filling");
+    private static Node getballon(Document doc, String b50, String b50m, String b27, String b12, String b5, String tagName) {
+        Element ballon = doc.createElement(tagName);
 
         // устанавливаем атрибут id
 //        language.setAttribute("id", id);
 
         // создаем элементы b50, b50m, b27, b12, b5
-        filling.appendChild(getLanguageElements(doc, filling, "b50", b50));
-        filling.appendChild(getLanguageElements(doc, filling, "b50m", b50m));
-        filling.appendChild(getLanguageElements(doc, filling, "b27", b27));
-        filling.appendChild(getLanguageElements(doc, filling, "b12", b12));
-        filling.appendChild(getLanguageElements(doc, filling, "b5", b5));
-        return filling;
-    }
-
-    // метод для создания нового узла XML-файла
-    private static Node getRealization(Document doc, String b50, String b50m, String b27, String b12, String b5) {
-        Element realization = doc.createElement("Realization");
-
-        // устанавливаем атрибут id
-//        language.setAttribute("id", id);
-
-        // создаем элементы b50, b50m, b27, b12, b5
-        realization.appendChild(getLanguageElements(doc, realization, "b50", b50));
-        realization.appendChild(getLanguageElements(doc, realization, "b50m", b50m));
-        realization.appendChild(getLanguageElements(doc, realization, "b27", b27));
-        realization.appendChild(getLanguageElements(doc, realization, "b12", b12));
-        realization.appendChild(getLanguageElements(doc, realization, "b5", b5));
-        return realization;
+        ballon.appendChild(getLanguageElements(doc, ballon, "b50", b50));
+        ballon.appendChild(getLanguageElements(doc, ballon, "b50m", b50m));
+        ballon.appendChild(getLanguageElements(doc, ballon, "b27", b27));
+        ballon.appendChild(getLanguageElements(doc, ballon, "b12", b12));
+        ballon.appendChild(getLanguageElements(doc, ballon, "b5", b5));
+        return ballon;
     }
 
 
